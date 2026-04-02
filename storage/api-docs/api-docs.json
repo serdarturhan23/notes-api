@@ -9,10 +9,8 @@
     {
       "url": "https://notes-api-production-18a1.up.railway.app",
       "description": "Production server"
-    },
-    {
-      "url": "/"
     }
+   
   ],
   "paths": {
     "/api/register": {
