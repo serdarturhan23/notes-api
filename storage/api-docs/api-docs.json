@@ -1,423 +1,423 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-        "title": "Notes API",
-        "description": "Laravel REST API for user authentication and notes management",
-        "version": "1.0.0"
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Notes API",
+    "description": "Laravel REST API for user authentication and notes management",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://notes-api-production-18a1.up.railway.app",
+      "description": "Production server"
     },
-    "servers": [
-        {
-            "url": "http://127.0.0.1:8000",
-            "description": "Local server"
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/api/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register a new user",
+        "operationId": "8e4e3cb7b46126f4696379d3c7eeb4ad",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "password_confirmation"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Serdar"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "serdar@test.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  },
+                  "password_confirmation": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
         },
-        {
-            "url": "/"
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "422": {
+            "description": "Validation error"
+          }
         }
-    ],
-    "paths": {
-        "/api/register": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Register a new user",
-                "operationId": "8e4e3cb7b46126f4696379d3c7eeb4ad",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "name",
-                                    "email",
-                                    "password",
-                                    "password_confirmation"
-                                ],
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "example": "Serdar"
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "serdar@test.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "example": "123456"
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string",
-                                        "example": "123456"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "User created"
-                    },
-                    "422": {
-                        "description": "Validation error"
-                    }
-                }
-            }
-        },
-        "/api/login": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Login user",
-                "operationId": "222b2625838e3c57e017987f73598fda",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "email",
-                                    "password"
-                                ],
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "format": "email",
-                                        "example": "serdar@test.com"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "example": "123456"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Login success"
-                    },
-                    "401": {
-                        "description": "Invalid credentials"
-                    },
-                    "422": {
-                        "description": "Validation error"
-                    }
-                }
-            }
-        },
-        "/api/logout": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Logout user",
-                "operationId": "ad65cbbd4e9f201619eae184a5961a98",
-                "responses": {
-                    "200": {
-                        "description": "Logout success"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/notes": {
-            "get": {
-                "tags": [
-                    "Notes"
-                ],
-                "summary": "List notes",
-                "operationId": "bae18c4794ae9fa2869bd2d6172e8bc1",
-                "parameters": [
-                    {
-                        "name": "status",
-                        "in": "query",
-                        "description": "Filter by status: completed or pending",
-                        "required": false,
-                        "schema": {
-                            "type": "string",
-                            "example": "completed"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Notes list"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Notes"
-                ],
-                "summary": "Create note",
-                "operationId": "b741a3f13d8dcdf760b41fbad8c68737",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "title"
-                                ],
-                                "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "İlk not"
-                                    },
-                                    "content": {
-                                        "type": "string",
-                                        "example": "Laravel API çalışıyor"
-                                    },
-                                    "due_date": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2026-04-05"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Note created"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "422": {
-                        "description": "Validation error"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/notes/{note}": {
-            "get": {
-                "tags": [
-                    "Notes"
-                ],
-                "summary": "Show note",
-                "operationId": "46ae355ac4ee73cfc0d2c600373a64ff",
-                "parameters": [
-                    {
-                        "name": "note",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Note details"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Notes"
-                ],
-                "summary": "Update note",
-                "operationId": "868de0af8647b2c498932322d6140c02",
-                "parameters": [
-                    {
-                        "name": "note",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "İlk not güncellendi"
-                                    },
-                                    "content": {
-                                        "type": "string",
-                                        "example": "İçerik değişti"
-                                    },
-                                    "due_date": {
-                                        "type": "string",
-                                        "format": "date",
-                                        "example": "2026-04-10"
-                                    },
-                                    "is_completed": {
-                                        "type": "boolean",
-                                        "example": false
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Note updated"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Notes"
-                ],
-                "summary": "Delete note",
-                "operationId": "18dd7c2317f5f45221b4e50b9762c481",
-                "parameters": [
-                    {
-                        "name": "note",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Note deleted"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/notes/{note}/complete": {
-            "patch": {
-                "tags": [
-                    "Notes"
-                ],
-                "summary": "Mark note as completed",
-                "operationId": "d6e7542cea5b1b8f0523dfde327a07a1",
-                "parameters": [
-                    {
-                        "name": "note",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "example": 1
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Note completed"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        }
+      }
     },
-    "components": {
-        "securitySchemes": {
-            "bearerAuth": {
-                "type": "http",
-                "description": "Bearer token authentication",
-                "bearerFormat": "JWT",
-                "scheme": "bearer"
-            },
-            "sanctum": {
-                "type": "apiKey",
-                "description": "Enter token as: Bearer {token}",
-                "name": "Authorization",
-                "in": "header"
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login user",
+        "operationId": "222b2625838e3c57e017987f73598fda",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "serdar@test.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                },
+                "type": "object"
+              }
             }
-        }
-    },
-    "tags": [
-        {
-            "name": "Auth",
-            "description": "Authentication endpoints"
+          }
         },
-        {
-            "name": "Notes",
-            "description": "Notes endpoints"
+        "responses": {
+          "200": {
+            "description": "Login success"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "422": {
+            "description": "Validation error"
+          }
         }
-    ],
-    "security": [
-        {
-            "sanctum": []
-        }
-    ]
+      }
+    },
+    "/api/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logout user",
+        "operationId": "ad65cbbd4e9f201619eae184a5961a98",
+        "responses": {
+          "200": {
+            "description": "Logout success"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notes": {
+      "get": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "List notes",
+        "operationId": "bae18c4794ae9fa2869bd2d6172e8bc1",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter by status: completed or pending",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "completed"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notes list"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Create note",
+        "operationId": "b741a3f13d8dcdf760b41fbad8c68737",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "İlk not"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "Laravel API çalışıyor"
+                  },
+                  "due_date": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2026-04-05"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Note created"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "422": {
+            "description": "Validation error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notes/{note}": {
+      "get": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Show note",
+        "operationId": "46ae355ac4ee73cfc0d2c600373a64ff",
+        "parameters": [
+          {
+            "name": "note",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Note details"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Update note",
+        "operationId": "868de0af8647b2c498932322d6140c02",
+        "parameters": [
+          {
+            "name": "note",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "İlk not güncellendi"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "İçerik değişti"
+                  },
+                  "due_date": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2026-04-10"
+                  },
+                  "is_completed": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Note updated"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Delete note",
+        "operationId": "18dd7c2317f5f45221b4e50b9762c481",
+        "parameters": [
+          {
+            "name": "note",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Note deleted"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/notes/{note}/complete": {
+      "patch": {
+        "tags": [
+          "Notes"
+        ],
+        "summary": "Mark note as completed",
+        "operationId": "d6e7542cea5b1b8f0523dfde327a07a1",
+        "parameters": [
+          {
+            "name": "note",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Note completed"
+          },
+          "401": {
+            "description": "Unauthenticated"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "description": "Bearer token authentication",
+        "bearerFormat": "JWT",
+        "scheme": "bearer"
+      },
+      "sanctum": {
+        "type": "apiKey",
+        "description": "Enter token as: Bearer {token}",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication endpoints"
+    },
+    {
+      "name": "Notes",
+      "description": "Notes endpoints"
+    }
+  ],
+  "security": [
+    {
+      "sanctum": []
+    }
+  ]
 }
