@@ -13,8 +13,8 @@ use OpenApi\Attributes as OA;
     description: "Laravel REST API for user authentication and notes management"
 )]
 #[OA\Server(
-    url: "http://127.0.0.1:8000",
-    description: "Local server"
+    url: L5_SWAGGER_CONST_HOST,
+    description: "API Server"
 )]
 #[OA\SecurityScheme(
     securityScheme: "bearerAuth",
