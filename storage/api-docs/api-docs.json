@@ -7,8 +7,8 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1:8000",
-            "description": "Local server"
+            "url": "https://notes-api-production-18a1.up.railway.app",
+            "description": "API Server"
         },
         {
             "url": "/"
