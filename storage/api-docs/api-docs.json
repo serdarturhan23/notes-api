@@ -9,6 +9,9 @@
         {
             "url": "http://127.0.0.1:8000",
             "description": "Local server"
+        },
+        {
+            "url": "/"
         }
     ],
     "paths": {
@@ -393,6 +396,12 @@
                 "description": "Bearer token authentication",
                 "bearerFormat": "JWT",
                 "scheme": "bearer"
+            },
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token as: Bearer {token}",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     },
@@ -404,6 +413,11 @@
         {
             "name": "Notes",
             "description": "Notes endpoints"
+        }
+    ],
+    "security": [
+        {
+            "sanctum": []
         }
     ]
 }
