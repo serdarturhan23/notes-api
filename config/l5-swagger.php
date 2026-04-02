@@ -7,6 +7,12 @@ return [
         'default' => [
             'api' => [
                 'title' => 'Notes API',
+                'servers' => [
+                    [
+                        'url' => env('L5_SWAGGER_CONST_HOST', env('APP_URL', 'http://127.0.0.1:8000')),
+                        'description' => 'API Server',
+                    ],
+                ],
             ],
 
             'routes' => [
@@ -86,7 +92,7 @@ return [
 
         'ui' => [
             'display' => [
-                'dark_mode' => env('L5_SWAGGER_UI_DARK_MODE', false),
+                'dark_mode' => env('L5_SWAGGER_UI_DARK_MODE', true),
                 'doc_expansion' => env('L5_SWAGGER_UI_DOC_EXPANSION', 'none'),
                 'filter' => env('L5_SWAGGER_UI_FILTERS', true),
             ],
@@ -101,7 +107,7 @@ return [
         ],
 
         'constants' => [
-            'L5_SWAGGER_CONST_HOST' => env('APP_URL', 'http://127.0.0.1:8000'),
+            'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', env('APP_URL', 'http://127.0.0.1:8000')),
         ],
     ],
 ];
