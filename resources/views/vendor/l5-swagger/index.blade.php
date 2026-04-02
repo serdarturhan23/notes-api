@@ -29,18 +29,15 @@ window.onload = function () {
     const urls = [];
 
     @foreach($urlsToDocs as $title => $url)
-        urls.push({ name: "{{ $title }}", url: "{{ $url }}" });
-    @endforeach
+urls.push({ name: "{{ $title }}", url: "{{ preg_replace('/^http:/', 'https:', $url) }}" });    @endforeach
 
     const ui = SwaggerUIBundle({
         dom_id: '#swagger-ui',
         urls: urls,
         "urls.primaryName": "{{ $documentationTitle }}",
         operationsSorter: {!! isset($operationsSorter) ? '"' . $operationsSorter . '"' : 'null' !!},
-        configUrl: {!! isset($configUrl) ? '"' . $configUrl . '"' : 'null' !!},
-        validatorUrl: {!! isset($validatorUrl) ? '"' . $validatorUrl . '"' : 'null' !!},
-        oauth2RedirectUrl: "{{ route('l5-swagger.'.$documentation.'.oauth2_callback', [], $useAbsolutePath) }}",
-        requestInterceptor: function(request) {
+configUrl: {!! isset($configUrl) ? '"' . preg_replace('/^http:/', 'https:', $configUrl) . '"' : 'null' !!},        validatorUrl: {!! isset($validatorUrl) ? '"' . $validatorUrl . '"' : 'null' !!},
+oauth2RedirectUrl: "{{ preg_replace('/^http:/', 'https:', route('l5-swagger.'.$documentation.'.oauth2_callback', [], $useAbsolutePath)) }}",        requestInterceptor: function(request) {
             request.headers['X-CSRF-TOKEN'] = '{{ csrf_token() }}';
             return request;
         },
